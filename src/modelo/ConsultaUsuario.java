@@ -7,11 +7,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ConsultaUsuario extends Conexion {
+public class ConsultaUsuario extends Conexion implements  Consulta<Usuario>{
 
     public ConsultaUsuario() {
     }
     
+    @Override
     public boolean registrar(Usuario user){
         
         String sql = "INSERT INTO usuario (usuario,contrasena,correo,telf,nom_ap,dni) VALUES (?,?,?,?,?,?)";
@@ -32,6 +33,7 @@ public class ConsultaUsuario extends Conexion {
         }              
     }
     
+    @Override
     public boolean modificar(Usuario user){
         String sql = "INSERT INTO usuario usuario=?,contrasena=?,correo=?,telf=?,nom_ap=?,dni=?,staff=? WHERE idusuario=?";
         
@@ -53,6 +55,7 @@ public class ConsultaUsuario extends Conexion {
         } 
     }
     
+    @Override
     public boolean eliminar(Usuario user){
         String sql="DELETE FROM usuario WHERE idusuario=?"; 
         try(Connection con = getConexion(); PreparedStatement ps = con.prepareStatement(sql)){        
@@ -66,6 +69,7 @@ public class ConsultaUsuario extends Conexion {
         } 
     }
     
+    @Override
     public boolean buscar(Usuario user){
         String sql="SELECT *FROM usuario WHERE usuario=?"; 
         try (Connection con = getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {

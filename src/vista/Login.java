@@ -3,6 +3,7 @@ package vista;
 import javax.swing.JOptionPane;
 import modelo.Usuario;
 import modelo.ConsultaUsuario;
+import modelo.Sesion;
 
 /**
  *
@@ -192,6 +193,7 @@ public class Login extends javax.swing.JFrame {
         if (conUser.buscar(user)) { 
             String contra = new String(txtContra.getPassword());
             if (contra.equals(user.getContrasena())) {
+                Sesion.getInstancia().iniciarSesion(user);
                 Principal principal = new Principal();
                 principal.setLocationRelativeTo(null);
                 principal.setVisible(true);
