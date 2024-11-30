@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConsultaCategoria extends Conexion implements Consulta<Categoria> {
     @Override
@@ -15,7 +17,7 @@ public class ConsultaCategoria extends Conexion implements Consulta<Categoria> {
         
         try(Connection con = getConexion(); PreparedStatement ps = con.prepareStatement(sql)){        
             ps.setString(1, cat.getNombre());
-            ps.setString(3, cat.getDescripcion());
+            ps.setString(2, cat.getDescripcion());
             ps.execute();
             return true;
         }catch(SQLException e)
@@ -31,8 +33,8 @@ public class ConsultaCategoria extends Conexion implements Consulta<Categoria> {
         
         try(Connection con = getConexion(); PreparedStatement ps = con.prepareStatement(sql)){        
             ps.setString(1, cat.getNombre());
-            ps.setString(3, cat.getDescripcion());
-            ps.setInt(8, cat.getIdCategoria());
+            ps.setString(2, cat.getDescripcion());
+            ps.setInt(3, cat.getIdCategoria());
             ps.execute();
             return true;
         }catch(SQLException e)
@@ -46,7 +48,7 @@ public class ConsultaCategoria extends Conexion implements Consulta<Categoria> {
     public boolean eliminar(Categoria cat){
         String sql="DELETE FROM categoria WHERE idCategoria=?"; 
         try(Connection con = getConexion(); PreparedStatement ps = con.prepareStatement(sql)){        
-            ps.setInt(8, cat.getIdCategoria());
+            ps.setInt(1, cat.getIdCategoria());
             ps.execute();
             return true;
         }catch(SQLException e)
@@ -63,7 +65,7 @@ public class ConsultaCategoria extends Conexion implements Consulta<Categoria> {
             ps.setString(1, cat.getNombre());
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    cat.setIdCategoria(rs.getInt("idCateogoria"));
+                    cat.setIdCategoria(rs.getInt("idCategoria"));
                     cat.setNombre(rs.getString("nombre"));
                     cat.setDescripcion(rs.getString("descripcion"));
                     return true;
@@ -74,5 +76,23 @@ public class ConsultaCategoria extends Conexion implements Consulta<Categoria> {
             System.err.println(e);
             return false;
         }
+    }
+    
+    public List<Categoria> listaCategoria() {
+        List<Categoria> categorias = new ArrayList<>();
+        String sql = "SELECT * FROM categoria";
+        try (Connection con = getConexion(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Categoria cat = new Categoria();
+                cat.setIdCategoria(rs.getInt("idCategoria"));
+                cat.setNombre(rs.getString("nombre"));
+                cat.setDescripcion(rs.getString("descripcion"));
+                categorias.add(cat);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener categorías: " + e.getMessage());
+        }
+
+        return categorias;
     }
 }

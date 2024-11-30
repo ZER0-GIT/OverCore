@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConsultaProducto extends Conexion implements Consulta<Producto>{
     
@@ -91,5 +93,30 @@ public class ConsultaProducto extends Conexion implements Consulta<Producto>{
             return false;
         }
     }
-
+    
+    public List<Object[]> obtenerProductos() {
+        List<Object[]> productos = new ArrayList<>();
+        String sql = "SELECT idProducto, nombre, id_categoria, marca, modelo, descripcion, precio, stock FROM productos";
+        try (Connection con = getConexion();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            
+            while (rs.next()) {
+                Object[] fila = new Object[8];
+                fila[0] = rs.getInt("idProducto");
+                fila[1] = rs.getString("nombre");
+                fila[2] = rs.getInt("id_categoria");
+                fila[3] = rs.getString("marca");
+                fila[4] = rs.getString("modelo");
+                fila[5] = rs.getString("descripcion");
+                fila[6] = rs.getDouble("precio");
+                fila[7] = rs.getInt("stock");
+                productos.add(fila);
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        return productos;
+    }
+    
 }
