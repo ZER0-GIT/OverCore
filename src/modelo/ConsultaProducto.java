@@ -1,5 +1,3 @@
-
-
 package modelo;
 
 import java.sql.Connection;
@@ -35,7 +33,7 @@ public class ConsultaProducto extends Conexion implements Consulta<Producto>{
     
     @Override
     public boolean modificar(Producto prodc){
-        String sql = "INSERT INTO productos nombre=?,id_categoria=?,marca=?,modelo=?,descripcion=?,precio=?,stock=? WHERE idProducto=?";
+        String sql = "UPDATE productos SET nombre=?,id_categoria=?,marca=?,modelo=?,descripcion=?,precio=?,stock=? WHERE idProducto=?";
         
         try(Connection con = getConexion(); PreparedStatement ps = con.prepareStatement(sql)){        
             ps.setString(1, prodc.getNombre());
@@ -59,7 +57,7 @@ public class ConsultaProducto extends Conexion implements Consulta<Producto>{
     public boolean eliminar(Producto prodc){
         String sql="DELETE FROM productos WHERE idProducto=?"; 
         try(Connection con = getConexion(); PreparedStatement ps = con.prepareStatement(sql)){        
-            ps.setInt(8, prodc.getIdProducto());
+            ps.setInt(1, prodc.getIdProducto());
             ps.execute();
             return true;
         }catch(SQLException e)
@@ -71,9 +69,9 @@ public class ConsultaProducto extends Conexion implements Consulta<Producto>{
     
     @Override
     public boolean buscar(Producto prodc){
-        String sql="SELECT *FROM productos WHERE nombre=?"; 
+        String sql="SELECT *FROM productos WHERE idProducto=?"; 
         try (Connection con = getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, prodc.getNombre());
+            ps.setInt(1, prodc.getIdProducto());
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     prodc.setIdProducto(rs.getInt("idProducto"));
@@ -93,8 +91,31 @@ public class ConsultaProducto extends Conexion implements Consulta<Producto>{
             return false;
         }
     }
+    public Producto buscarProdc(Producto prodc){
+        String sql="SELECT *FROM productos WHERE idProducto=?"; 
+        try (Connection con = getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, prodc.getIdProducto());
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    prodc.setIdProducto(rs.getInt("idProducto"));
+                    prodc.setNombre(rs.getString("nombre"));
+                    prodc.setIdCategoria(rs.getInt("id_categoria"));
+                    prodc.setMarca(rs.getString("marca"));
+                    prodc.setModelo(rs.getString("modelo"));
+                    prodc.setDescripcion(rs.getString("descripcion"));
+                    prodc.setPrecio(rs.getDouble("precio"));
+                    prodc.setStock(rs.getInt("stock"));
+                    return prodc;
+                }
+                return null;
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
+            return null;
+        }
+    }
     
-    public List<Object[]> obtenerProductos() {
+    public List<Object[]> listar() {
         List<Object[]> productos = new ArrayList<>();
         String sql = "SELECT idProducto, nombre, id_categoria, marca, modelo, descripcion, precio, stock FROM productos";
         try (Connection con = getConexion();

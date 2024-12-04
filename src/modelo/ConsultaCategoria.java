@@ -29,7 +29,7 @@ public class ConsultaCategoria extends Conexion implements Consulta<Categoria> {
     
     @Override
     public boolean modificar(Categoria cat){
-        String sql = "INSERT INTO productos nombre=?,descripcion=? WHERE idCategoria=?";
+        String sql = "UPDATE categoria SET nombre=?,descripcion=? WHERE idCategoria=?";
         
         try(Connection con = getConexion(); PreparedStatement ps = con.prepareStatement(sql)){        
             ps.setString(1, cat.getNombre());
@@ -60,9 +60,9 @@ public class ConsultaCategoria extends Conexion implements Consulta<Categoria> {
     
     @Override
     public boolean buscar(Categoria cat){
-        String sql="SELECT *FROM categoria WHERE nombre=?"; 
+        String sql="SELECT *FROM categoria WHERE idCategoria=?"; 
         try (Connection con = getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, cat.getNombre());
+            ps.setInt(1, cat.getIdCategoria());
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     cat.setIdCategoria(rs.getInt("idCategoria"));
@@ -78,7 +78,7 @@ public class ConsultaCategoria extends Conexion implements Consulta<Categoria> {
         }
     }
     
-    public List<Categoria> listaCategoria() {
+    public List<Categoria> listar() {
         List<Categoria> categorias = new ArrayList<>();
         String sql = "SELECT * FROM categoria";
         try (Connection con = getConexion(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {

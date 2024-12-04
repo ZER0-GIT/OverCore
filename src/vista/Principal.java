@@ -1,10 +1,9 @@
 package vista;
 
+import control.CtrlCarrito;
+import control.CtrlCategoria;
 import java.awt.CardLayout;
-import java.util.List;
-import javax.swing.table.DefaultTableModel;
 import modelo.Sesion;
-import modelo.ConsultaProducto;
 import control.CtrlProducto;
 
 /**
@@ -13,6 +12,8 @@ import control.CtrlProducto;
  */
 public class Principal extends javax.swing.JFrame {
     CtrlProducto ctrlProd = new CtrlProducto();
+    CtrlCarrito ctrlCar = new CtrlCarrito();
+    CtrlCategoria ctrlCat = new CtrlCategoria();
     private CardLayout card;
     /**
      * Creates new form Principal
@@ -33,7 +34,6 @@ public class Principal extends javax.swing.JFrame {
         PanelBackGround = new javax.swing.JPanel();
         PanelDashboard = new javax.swing.JPanel();
         btnInicio = new javax.swing.JButton();
-        btnCuenta = new javax.swing.JButton();
         btnProductos = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
         btnCarrito = new javax.swing.JButton();
@@ -41,6 +41,8 @@ public class Principal extends javax.swing.JFrame {
         PanelContenidoV = new javax.swing.JPanel();
         pInicio = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         pProductos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbProducto = new javax.swing.JTable();
@@ -50,11 +52,18 @@ public class Principal extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         btnAddCarrito = new javax.swing.JButton();
         pCarrito = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        pCuenta = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbCarrito = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        lblTotalPago = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         pCategoria = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tbCat = new javax.swing.JTable();
+        btnCatIngresar = new javax.swing.JButton();
+        btnCatModificar = new javax.swing.JButton();
+        btnCatBuscar = new javax.swing.JButton();
+        btnCatEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -72,16 +81,6 @@ public class Principal extends javax.swing.JFrame {
         btnInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInicioActionPerformed(evt);
-            }
-        });
-
-        btnCuenta.setBackground(new java.awt.Color(56, 56, 56));
-        btnCuenta.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnCuenta.setForeground(new java.awt.Color(210, 210, 210));
-        btnCuenta.setText("CUENTA");
-        btnCuenta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCuentaActionPerformed(evt);
             }
         });
 
@@ -136,7 +135,6 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(btnCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -150,33 +148,58 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(btnCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGap(53, 53, 53))
         );
 
         PanelContenidoV.setLayout(new java.awt.CardLayout());
 
-        jLabel1.setText("PANEL INICIO");
+        pInicio.setBackground(new java.awt.Color(30, 30, 29));
+
+        jLabel1.setBackground(new java.awt.Color(30, 30, 29));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(210, 210, 210));
+        jLabel1.setText("BIENVENIDO AL SISTEMA DE OVERCORE");
+
+        jLabel2.setBackground(new java.awt.Color(30, 30, 29));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(210, 210, 210));
+        jLabel2.setText("AQUI ENCONTRARÁS LOS MEJORES PRECIOS");
+
+        jLabel3.setBackground(new java.awt.Color(30, 30, 29));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(210, 210, 210));
+        jLabel3.setText("PARA PRODUCTOS DE INFORMATICA");
 
         javax.swing.GroupLayout pInicioLayout = new javax.swing.GroupLayout(pInicio);
         pInicio.setLayout(pInicioLayout);
         pInicioLayout.setHorizontalGroup(
             pInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pInicioLayout.createSequentialGroup()
-                .addGap(107, 107, 107)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pInicioLayout.createSequentialGroup()
+                .addContainerGap(188, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(1106, Short.MAX_VALUE))
+                .addGap(184, 184, 184))
+            .addGroup(pInicioLayout.createSequentialGroup()
+                .addGap(240, 240, 240)
+                .addGroup(pInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(pInicioLayout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(jLabel3)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pInicioLayout.setVerticalGroup(
             pInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pInicioLayout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(jLabel1)
-                .addContainerGap(740, Short.MAX_VALUE))
+                .addGap(73, 73, 73)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addContainerGap(376, Short.MAX_VALUE))
         );
 
         PanelContenidoV.add(pInicio, "pInicio");
@@ -184,6 +207,7 @@ public class Principal extends javax.swing.JFrame {
         pProductos.setBackground(new java.awt.Color(30, 30, 29));
 
         tbProducto.setBackground(new java.awt.Color(40, 40, 39));
+        tbProducto.setForeground(new java.awt.Color(210, 210, 210));
         tbProducto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -210,22 +234,21 @@ public class Principal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tbProducto.setEnabled(false);
         tbProducto.setGridColor(new java.awt.Color(60, 60, 59));
         tbProducto.setSelectionBackground(new java.awt.Color(70, 70, 69));
         tbProducto.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tbProducto);
         if (tbProducto.getColumnModel().getColumnCount() > 0) {
-            tbProducto.getColumnModel().getColumn(0).setPreferredWidth(30);
+            tbProducto.getColumnModel().getColumn(0).setPreferredWidth(20);
             tbProducto.getColumnModel().getColumn(1).setPreferredWidth(140);
-            tbProducto.getColumnModel().getColumn(2).setMinWidth(0);
-            tbProducto.getColumnModel().getColumn(2).setPreferredWidth(0);
-            tbProducto.getColumnModel().getColumn(2).setMaxWidth(0);
-            tbProducto.getColumnModel().getColumn(3).setPreferredWidth(150);
-            tbProducto.getColumnModel().getColumn(4).setPreferredWidth(80);
-            tbProducto.getColumnModel().getColumn(5).setPreferredWidth(400);
+            tbProducto.getColumnModel().getColumn(2).setPreferredWidth(150);
+            tbProducto.getColumnModel().getColumn(3).setPreferredWidth(50);
+            tbProducto.getColumnModel().getColumn(4).setPreferredWidth(50);
+            tbProducto.getColumnModel().getColumn(5).setPreferredWidth(80);
             tbProducto.getColumnModel().getColumn(6).setPreferredWidth(30);
+            tbProducto.getColumnModel().getColumn(6).setHeaderValue("Precio");
             tbProducto.getColumnModel().getColumn(7).setPreferredWidth(40);
+            tbProducto.getColumnModel().getColumn(7).setHeaderValue("Stock");
         }
 
         btnRegistrar.setBackground(new java.awt.Color(56, 56, 56));
@@ -255,17 +278,32 @@ public class Principal extends javax.swing.JFrame {
         btnEliminar.setForeground(new java.awt.Color(210, 210, 210));
         btnEliminar.setText("Eliminar");
         btnEliminar.setPreferredSize(new java.awt.Dimension(150, 50));
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setBackground(new java.awt.Color(56, 56, 56));
         btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnBuscar.setForeground(new java.awt.Color(210, 210, 210));
         btnBuscar.setText("Buscar");
         btnBuscar.setPreferredSize(new java.awt.Dimension(150, 50));
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnAddCarrito.setBackground(new java.awt.Color(56, 56, 56));
         btnAddCarrito.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnAddCarrito.setForeground(new java.awt.Color(210, 210, 210));
         btnAddCarrito.setText("Añadir al carrito");
+        btnAddCarrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddCarritoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pProductosLayout = new javax.swing.GroupLayout(pProductos);
         pProductos.setLayout(pProductosLayout);
@@ -304,65 +342,225 @@ public class Principal extends javax.swing.JFrame {
 
         PanelContenidoV.add(pProductos, "pProductos");
 
-        jLabel3.setText("PANEL CARRITO");
+        pCarrito.setBackground(new java.awt.Color(30, 30, 29));
+
+        tbCarrito.setBackground(new java.awt.Color(40, 40, 39));
+        tbCarrito.setForeground(new java.awt.Color(210, 210, 210));
+        tbCarrito.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID Carrito", "ID Producto", "Nombre", "Modelo", "Cantidad", "Precio C/U", "Precio Total"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbCarrito.setGridColor(new java.awt.Color(60, 60, 59));
+        tbCarrito.setSelectionBackground(new java.awt.Color(70, 70, 69));
+        tbCarrito.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tbCarrito);
+        if (tbCarrito.getColumnModel().getColumnCount() > 0) {
+            tbCarrito.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tbCarrito.getColumnModel().getColumn(1).setResizable(false);
+            tbCarrito.getColumnModel().getColumn(1).setPreferredWidth(20);
+            tbCarrito.getColumnModel().getColumn(1).setHeaderValue("ID Producto");
+            tbCarrito.getColumnModel().getColumn(2).setPreferredWidth(300);
+            tbCarrito.getColumnModel().getColumn(3).setPreferredWidth(600);
+            tbCarrito.getColumnModel().getColumn(4).setResizable(false);
+            tbCarrito.getColumnModel().getColumn(4).setPreferredWidth(50);
+            tbCarrito.getColumnModel().getColumn(4).setHeaderValue("Cantidad");
+            tbCarrito.getColumnModel().getColumn(5).setResizable(false);
+            tbCarrito.getColumnModel().getColumn(5).setPreferredWidth(50);
+            tbCarrito.getColumnModel().getColumn(5).setHeaderValue("Precio C/U");
+            tbCarrito.getColumnModel().getColumn(6).setResizable(false);
+            tbCarrito.getColumnModel().getColumn(6).setPreferredWidth(80);
+            tbCarrito.getColumnModel().getColumn(6).setHeaderValue("Precio Total");
+        }
+
+        jButton1.setBackground(new java.awt.Color(56, 56, 56));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(210, 210, 210));
+        jButton1.setText("ELIMINAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        lblTotalPago.setBackground(new java.awt.Color(0, 0, 0));
+        lblTotalPago.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblTotalPago.setForeground(new java.awt.Color(255, 255, 255));
+        lblTotalPago.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblTotalPago.setText("0.00");
+
+        jButton2.setBackground(new java.awt.Color(56, 56, 56));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(210, 210, 210));
+        jButton2.setText("MODIFICAR CANTIDAD");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pCarritoLayout = new javax.swing.GroupLayout(pCarrito);
         pCarrito.setLayout(pCarritoLayout);
         pCarritoLayout.setHorizontalGroup(
             pCarritoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pCarritoLayout.createSequentialGroup()
-                .addGap(132, 132, 132)
-                .addComponent(jLabel3)
-                .addContainerGap(1068, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addGroup(pCarritoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(pCarritoLayout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblTotalPago, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1247, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         pCarritoLayout.setVerticalGroup(
             pCarritoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pCarritoLayout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(jLabel3)
-                .addContainerGap(740, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(pCarritoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblTotalPago)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(48, 48, 48))
         );
 
         PanelContenidoV.add(pCarrito, "pCarrito");
 
-        jLabel4.setText("PANEL CUENTA");
+        pCategoria.setBackground(new java.awt.Color(30, 30, 29));
 
-        javax.swing.GroupLayout pCuentaLayout = new javax.swing.GroupLayout(pCuenta);
-        pCuenta.setLayout(pCuentaLayout);
-        pCuentaLayout.setHorizontalGroup(
-            pCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pCuentaLayout.createSequentialGroup()
-                .addGap(199, 199, 199)
-                .addComponent(jLabel4)
-                .addContainerGap(1004, Short.MAX_VALUE))
-        );
-        pCuentaLayout.setVerticalGroup(
-            pCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pCuentaLayout.createSequentialGroup()
-                .addGap(136, 136, 136)
-                .addComponent(jLabel4)
-                .addContainerGap(666, Short.MAX_VALUE))
-        );
+        tbCat.setBackground(new java.awt.Color(40, 40, 39));
+        tbCat.setForeground(new java.awt.Color(210, 210, 210));
+        tbCat.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "Nombre", "Descripcion"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
-        PanelContenidoV.add(pCuenta, "pCuenta");
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
-        jLabel5.setText("PANEL CATEGORIA");
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbCat.setGridColor(new java.awt.Color(60, 60, 59));
+        tbCat.setSelectionBackground(new java.awt.Color(70, 70, 69));
+        tbCat.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(tbCat);
+        if (tbCat.getColumnModel().getColumnCount() > 0) {
+            tbCat.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tbCat.getColumnModel().getColumn(1).setPreferredWidth(300);
+            tbCat.getColumnModel().getColumn(2).setPreferredWidth(600);
+        }
+
+        btnCatIngresar.setBackground(new java.awt.Color(56, 56, 56));
+        btnCatIngresar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnCatIngresar.setForeground(new java.awt.Color(210, 210, 210));
+        btnCatIngresar.setText("Ingresar");
+        btnCatIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCatIngresarActionPerformed(evt);
+            }
+        });
+
+        btnCatModificar.setBackground(new java.awt.Color(56, 56, 56));
+        btnCatModificar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnCatModificar.setForeground(new java.awt.Color(210, 210, 210));
+        btnCatModificar.setText("Modificar");
+        btnCatModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCatModificarActionPerformed(evt);
+            }
+        });
+
+        btnCatBuscar.setBackground(new java.awt.Color(56, 56, 56));
+        btnCatBuscar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnCatBuscar.setForeground(new java.awt.Color(210, 210, 210));
+        btnCatBuscar.setText("Buscar");
+        btnCatBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCatBuscarActionPerformed(evt);
+            }
+        });
+
+        btnCatEliminar.setBackground(new java.awt.Color(56, 56, 56));
+        btnCatEliminar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnCatEliminar.setForeground(new java.awt.Color(210, 210, 210));
+        btnCatEliminar.setText("Eliminar");
+        btnCatEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCatEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pCategoriaLayout = new javax.swing.GroupLayout(pCategoria);
         pCategoria.setLayout(pCategoriaLayout);
         pCategoriaLayout.setHorizontalGroup(
             pCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pCategoriaLayout.createSequentialGroup()
-                .addGap(79, 79, 79)
-                .addComponent(jLabel5)
-                .addContainerGap(1106, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addGroup(pCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pCategoriaLayout.createSequentialGroup()
+                        .addComponent(btnCatIngresar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCatModificar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCatBuscar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCatEliminar))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1247, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         pCategoriaLayout.setVerticalGroup(
             pCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pCategoriaLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(jLabel5)
-                .addContainerGap(756, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(pCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCatIngresar)
+                    .addComponent(btnCatModificar)
+                    .addComponent(btnCatBuscar)
+                    .addComponent(btnCatEliminar))
+                .addContainerGap(167, Short.MAX_VALUE))
         );
 
         PanelContenidoV.add(pCategoria, "pCategoria");
@@ -398,11 +596,6 @@ public class Principal extends javax.swing.JFrame {
         card.show(PanelContenidoV,"pInicio");
     }//GEN-LAST:event_btnInicioActionPerformed
 
-    private void btnCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuentaActionPerformed
-        card = (CardLayout)this.PanelContenidoV.getLayout();
-        card.show(PanelContenidoV,"pCuenta");
-    }//GEN-LAST:event_btnCuentaActionPerformed
-
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
         card = (CardLayout)this.PanelContenidoV.getLayout();
         card.show(PanelContenidoV,"pProductos");
@@ -419,22 +612,70 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarritoActionPerformed
         card = (CardLayout)this.PanelContenidoV.getLayout();
+        ctrlCar.actualizarTabla(tbCarrito, lblTotalPago);
+        
         card.show(PanelContenidoV,"pCarrito");
     }//GEN-LAST:event_btnCarritoActionPerformed
 
     private void btnCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriaActionPerformed
         card = (CardLayout)this.PanelContenidoV.getLayout();
         card.show(PanelContenidoV,"pCategoria");
+        ctrlCat.actualizarTabla(tbCat);
     }//GEN-LAST:event_btnCategoriaActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+        ctrlProd.modificar();
+        ctrlProd.actualizarTabla(tbProducto);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        ctrlProd.registrarControl();
+        ctrlProd.registrar();
         ctrlProd.actualizarTabla(tbProducto);
     }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        ctrlProd.eliminar();
+        ctrlProd.actualizarTabla(tbProducto);
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        ctrlProd.actualizarTabla(tbProducto);
+        ctrlProd.buscar(tbProducto);
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnAddCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCarritoActionPerformed
+        ctrlProd.carrito(tbProducto);
+    }//GEN-LAST:event_btnAddCarritoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ctrlCar.eliminar(tbCarrito);
+        ctrlCar.actualizarTabla(tbCarrito, lblTotalPago);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        ctrlCar.modificar(tbCarrito);
+        ctrlCar.actualizarTabla(tbCarrito, lblTotalPago);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnCatIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCatIngresarActionPerformed
+        ctrlCat.registrar();
+        ctrlCat.actualizarTabla(tbCat);
+    }//GEN-LAST:event_btnCatIngresarActionPerformed
+
+    private void btnCatModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCatModificarActionPerformed
+        ctrlCat.modificar();
+        ctrlCat.actualizarTabla(tbCat);
+    }//GEN-LAST:event_btnCatModificarActionPerformed
+
+    private void btnCatBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCatBuscarActionPerformed
+        ctrlCat.buscar(tbCat);
+        ctrlCat.actualizarTabla(tbCat);
+    }//GEN-LAST:event_btnCatBuscarActionPerformed
+
+    private void btnCatEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCatEliminarActionPerformed
+        ctrlCat.eliminar();
+        ctrlCat.actualizarTabla(tbCat);
+    }//GEN-LAST:event_btnCatEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -476,27 +717,35 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel PanelBackGround;
     private javax.swing.JPanel PanelContenidoV;
     private javax.swing.JPanel PanelDashboard;
-    public javax.swing.JButton btnAddCarrito;
-    public javax.swing.JButton btnBuscar;
-    public javax.swing.JButton btnCarrito;
-    public javax.swing.JButton btnCategoria;
+    private javax.swing.JButton btnAddCarrito;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCarrito;
+    private javax.swing.JButton btnCatBuscar;
+    private javax.swing.JButton btnCatEliminar;
+    private javax.swing.JButton btnCatIngresar;
+    private javax.swing.JButton btnCatModificar;
+    private javax.swing.JButton btnCategoria;
     public javax.swing.JButton btnCerrarSesion;
-    public javax.swing.JButton btnCuenta;
-    public javax.swing.JButton btnEditar;
-    public javax.swing.JButton btnEliminar;
-    public javax.swing.JButton btnInicio;
-    public javax.swing.JButton btnProductos;
-    public javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnInicio;
+    private javax.swing.JButton btnProductos;
+    private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lblTotalPago;
     private javax.swing.JPanel pCarrito;
     private javax.swing.JPanel pCategoria;
-    private javax.swing.JPanel pCuenta;
     private javax.swing.JPanel pInicio;
     private javax.swing.JPanel pProductos;
-    public javax.swing.JTable tbProducto;
+    private javax.swing.JTable tbCarrito;
+    private javax.swing.JTable tbCat;
+    private javax.swing.JTable tbProducto;
     // End of variables declaration//GEN-END:variables
 }
