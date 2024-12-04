@@ -11,6 +11,7 @@ import control.CtrlProducto;
  * @author Lol_B
  */
 public class Principal extends javax.swing.JFrame {
+    
     CtrlProducto ctrlProd = new CtrlProducto();
     CtrlCarrito ctrlCar = new CtrlCarrito();
     CtrlCategoria ctrlCat = new CtrlCategoria();
@@ -20,6 +21,12 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
+        if(!Sesion.getInstancia().esStaff()){
+            btnRegistrar.setVisible(false);
+            btnEditar.setVisible(false);
+            btnEliminar.setVisible(false);
+            btnCategoria.setVisible(false);
+        }
     }
 
     /**

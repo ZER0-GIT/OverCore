@@ -30,4 +30,7 @@ public class Sesion {
     public boolean haySesionActiva() {
         return usuario != null;
     }
+    public boolean esStaff(){
+        return usuario.isStaff();
+    }
 }
